@@ -1,0 +1,27 @@
+[
+    {
+        "id":"0",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6wQtk6ZoCHaeLj6-aN9z1_WnEPglB1TG08KS3TVx99ejXLHKmeGnIRgoUTCKE9erdI1QWOqML&usqp=CAc",
+        "name": "DELL",
+        "price": "₹60000"
+    },
+    {
+        "id":"1",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1cHZYoWBXNjkK7RdsTorpuPApr4Ogr_bXlmFS69VR4-_HKTL-Tehr_wlfAu7MPtu7FALBbfYU&usqp=CAc",
+        "name": "MacBook Air",
+        "price": "₹100000"
+    },
+    {
+        "id":"2",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrWA6TZbe2j3L6W8MD9Gb-OTo9y0x89pMnQ&usqp=CAU",
+        "name": "MacBook pro",
+        "price": "₹120000"
+    },
+    {
+        "id":"3",
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJo8OoP_HdH9N_eAGeiej0FpPPScjFBMjI-w&usqp=CAU",
+        "name": "Lenovo",
+        "price": "₹59999"
+    }
+    
+]
