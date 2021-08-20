@@ -29,18 +29,7 @@ function App() {
         }
     }
 
-    const onRemove=(product)=>{
-        const exist = items.find((x)=>x.id === product.id);
-        if(exist.qty===1){
-            setItems(
-                items.filter((x)=> 
-                    x.id !== product.id
-                )
-            );
-        }else {
-            setItems(items.map(x=>x.id === product.id ? {...exist, qty:exist.qty-1} : x) )
-        }
-    }
+    
   const loginHandler=()=>{
     setAuth(true)
   }
@@ -54,7 +43,7 @@ function App() {
           <Navbar auth={auth} logoutHandler={logoutHandler}/>
           <Switch>
             <Route exact path="/mobiles" render={(props)=><Mobile {...props} onAdd={onAdd}/>} />
-            <Route exact path="/watches" render={(props)=><Laptop {...props} onAdd={onAdd}/>} />
+            <Route exact path="/watches" render={(props)=><Watches {...props} onAdd={onAdd}/>} />
             <Route exact path="/laptops" render={(props)=><Laptop {...props} onAdd={onAdd}/>} />
             <Route exact path="/upload" component={Upload} />
             <Route exact path="/login" render={(props)=><Login {...props} loginHandler={loginHandler}/>} />

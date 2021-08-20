@@ -1,6 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import './style.css'
 
 
 
@@ -37,7 +38,7 @@ let Mobile = (props) => {
                   return(
                     <div key={index}>
                       
-                      <div className="card-header">
+                      <div className="card-header" >
                         <img
                          src={mob.img}
                          alt="Oppo Mobile"
@@ -47,7 +48,7 @@ let Mobile = (props) => {
                        </div>
                          
 
-                        <div className="card-body">
+                        <div className="card-body" id="mob">
                           <ul className="list-group">
                              <li className="list-group-item">{mob.name}</li>
                              <li className="list-group-item">{mob.price}</li>

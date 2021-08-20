@@ -1,6 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import './style.css'
 
 let Laptop=(props)=>{
     const[data,setData]=useState([])
@@ -28,15 +29,15 @@ let Laptop=(props)=>{
       </section>
 
         
-        <div className="container">
+        <div className="container" >
             <div className="row">
-                <div className="col-md-6"></div>
+                <div className="col"></div>
             </div>
         </div>
-        <div className="container mt-3">
-            <div className="row">
-                <div className="col-md-3">
-                    <div className="card">
+        <div className="container mt-3" >
+            
+                <div className="col-md-4" >
+                    <div className="card" >
                         {data.map((get,index)=>{
                          return(
                              <div key={index}>
@@ -67,7 +68,7 @@ let Laptop=(props)=>{
                     </div>
                 </div>
             </div>
-         </div>
+         
         </>
     )
 }

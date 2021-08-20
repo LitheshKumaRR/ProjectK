@@ -6,7 +6,11 @@ function Cart(props) {
   return (
     <React.Fragment>
       <h1>Items Added to the cart</h1>
-      {
+      <div className="container">
+        <div className="row">
+          <div className="col-md-3">
+            <div className="card">
+            {
         items.map((items)=>(
           <div key={items.id}>
             <img src={items.img} alt="" />
@@ -15,8 +19,14 @@ function Cart(props) {
           </div>
         ))
       }
+     
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <Link to="./Checkout">
-        <button className="btn btn-success">Checkout </button>
+        <button className="btn btn-success">Proceed to Checkout </button>
         </Link>
       
     </React.Fragment>
