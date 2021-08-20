@@ -2,13 +2,14 @@ import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import './style.css'
+import {laptopListUrl} from '../Json/bin'
 
 let Laptop=(props)=>{
     const[data,setData]=useState([])
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get('./data.json')
+        const res=await axios.get(`${laptopListUrl}`)
         setData(res.data)
         setCart(false)
     }

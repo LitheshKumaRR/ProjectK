@@ -1,6 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import {watchListUrl} from '../Json/bin'
 
 
 let Watches = (props) => {
@@ -8,7 +9,7 @@ let Watches = (props) => {
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get('./data1.json')
+        const res=await axios.get(`${watchListUrl}`)
         setData(res.data)
         setCart(false)
     }

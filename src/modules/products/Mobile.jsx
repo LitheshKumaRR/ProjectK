@@ -2,6 +2,7 @@ import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import './style.css'
+import {mobileListUrl} from '../Json/bin'
 
 
 
@@ -10,7 +11,7 @@ let Mobile = (props) => {
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get('./data2.json')
+        const res=await axios.get(`${mobileListUrl}`)
         setData(res.data)
         setCart(false)
     }
