@@ -1,8 +1,6 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import './style.css'
-import {mobileListUrl} from '../Json/bin'
 
 
 
@@ -11,14 +9,14 @@ let Mobile = (props) => {
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get(`${mobileListUrl}`)
+        const res=await axios.get('https://api.jsonbin.io/b/611fd9adc5159b35ae016bc3')
         setData(res.data)
         setCart(false)
     }
 
     useEffect(()=>{
      pullData()
-    })
+    },[])
   return (
     <React.Fragment>
       <section className="bg-warning p-3">
@@ -31,15 +29,16 @@ let Mobile = (props) => {
         </div>
       </section>
       <section>
-        <div className="container m-4">
+        <div className="container mt-4">
           <div className="row">
-            <div className="col-md-3">
-              <div className="card">
+            {/* <div className="col-lg-3"> */}
+              
                 {data.map((mob,index)=>{
                   return(
-                    <div key={index}>
+                    <div key={index } className="col-lg-3 py-3 px-3" >
+                      <div className="card">
                       
-                      <div className="card-header" >
+                      <div className="card-header">
                         <img
                          src={mob.img}
                          alt="Oppo Mobile"
@@ -49,7 +48,7 @@ let Mobile = (props) => {
                        </div>
                          
 
-                        <div className="card-body" id="mob">
+                        <div className="card-body">
                           <ul className="list-group">
                              <li className="list-group-item">{mob.name}</li>
                              <li className="list-group-item">{mob.price}</li>
@@ -61,13 +60,14 @@ let Mobile = (props) => {
                           </ul>
                       </div>
                     </div>
+                    </div>
                   )
                 })}
               </div>
-            </div>
+            
             
           </div>
-        </div>
+        {/* </div> */}
       </section>
     </React.Fragment>
   );

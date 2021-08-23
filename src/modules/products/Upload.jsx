@@ -1,30 +1,45 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { uploadProductAction } from '../Redux/product.action'
 let Upload = () => {
+  let dispatch = useDispatch();
+  let history = useHistory();
   let [product, setProduct] = useState({
-    productName: "",
+    name: "",
+    brand: "",
+    image: "",
     price: "",
     qty: "",
     category: "",
-    image: "",
     desc: "",
     usage: "",
   });
+
   let inputHandler = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
   let imageHandler = (event) => {
+    console.log("imageHandler...");
+    
     let imageFile = event.target.files[0];
     let reader = new FileReader();
+
     reader.readAsDataURL(imageFile);
+    console.log(reader);
+    console.log(reader.result, "....");
     reader.addEventListener("load", () => {
       if (reader.result) {
-        setProduct({ ...product, image: reader.result });
+        setProduct({
+          ...product,
+          image: reader.result,
+        });
       }
     });
   };
   let submitHandler = (event) => {
-    console.log(product);
     event.preventDefault();
+    dispatch(uploadProductAction(product, history));
   };
   return (
     <>
@@ -32,56 +47,61 @@ let Upload = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-              <h4> Upload Product</h4>
+              <h3> Upload Products - By Admin</h3>
             </div>
           </div>
         </div>
       </section>
+      <pre>{JSON.stringify(product)}</pre>
       <section>
         <div className="container mt-4">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-8">
               <div className="card">
                 <div className="card-header">
-                  <h5> Product Upload</h5>
-                  <pre>{JSON.stringify(product)}</pre>
+                  <h4> Upload Products</h4>
                 </div>
+
                 <div className="card-body">
                   <form onSubmit={submitHandler}>
                     <div className="form-group">
                       <input
                         type="text"
                         className="form-control"
+                        name="name"
+                        onChange={inputHandler}
+                        value={product.name}
                         placeholder="Product Name"
-                        name="productName"
-                        onChange={inputHandler} required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Price"
-                        name="price"
-                        onChange={inputHandler} required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="QTY"
-                        name="qty"
-                        onChange={inputHandler} required
                       />
                     </div>
                     <div className="form-group">
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Category"
-                        name="category"
-                        onChange={inputHandler} required
+                        name="brand"
+                        onChange={inputHandler}
+                        value={product.brand}
+                        placeholder="Brand Name"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="price"
+                        onChange={inputHandler}
+                        value={product.price}
+                        placeholder="Price"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="qty"
+                        onChange={inputHandler}
+                        value={product.qty}
+                        placeholder="QTY"
                       />
                     </div>
                     <div className="form-group">
@@ -89,29 +109,48 @@ let Upload = () => {
                         type="file"
                         className="form-control"
                         name="image"
-                        onChange={imageHandler} 
+                        placeholder="Product Image"
+                        onChange={imageHandler}
                       />
                     </div>
                     <div className="form-group">
-                      <textarea
+                      <select
                         className="form-control"
-                        placeholder="Product Description"
-                        name="desc"
-                        onChange={inputHandler} required
-                      ></textarea>
+                        name="category"
+                        onChange={inputHandler}
+                      >
+                        <option value="">Select Category</option>
+                        <option value="Mobiles">Mobiles</option>
+                        <option value="Laptops">Laptops</option>
+                        <option value="Watches">Watches</option>
+                      </select>
                     </div>
                     <div className="form-group">
-                      <textarea
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="desc"
+                        onChange={inputHandler}
+                        value={product.desc}
+                        placeholder="Product Description"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        type="text"
                         className="form-control"
                         name="usage"
                         onChange={inputHandler}
-                        placeholder="Product Usage" required
-                      ></textarea>
+                        value={product.usage}
+                        placeholder="Product Usage"
+                      />
                     </div>
                     <div className="form-group">
-                      <button className="btn btn-success">
-                        Upload Product
-                      </button>
+                      <input
+                        type="submit"
+                        className="form-control btn btn-success"
+                      />
                     </div>
                   </form>
                 </div>

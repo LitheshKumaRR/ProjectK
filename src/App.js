@@ -12,6 +12,8 @@ import Register from "./modules/users/Register";
 import Cart from './modules/orders/Cart'
 import Checkout from "./modules/orders/Checkout";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { Provider } from "react-redux";
+import Store from './modules/Redux/Store'
 function App() {
   const [auth,setAuth]=useState(false)
   const [items,setItems]=useState([]); 
@@ -38,6 +40,7 @@ function App() {
   }
   return (
     <React.Fragment>
+            <Provider store={Store}>
       
         <Router>
           <Navbar auth={auth} logoutHandler={logoutHandler}/>
@@ -55,6 +58,7 @@ function App() {
              }
           </Switch>
         </Router>
+        </Provider>
     </React.Fragment>
   );
 }

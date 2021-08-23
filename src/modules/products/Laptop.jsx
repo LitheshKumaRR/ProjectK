@@ -1,22 +1,29 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import './style.css'
-import {laptopListUrl} from '../Json/bin'
+import { useDispatch,useSelector } from "react-redux";
+import { getLaptopAction } from '../Redux/product.action'
+
 
 let Laptop=(props)=>{
+  let dispatch=useDispatch()
+  let abc = useSelector((state) => {
+    return state.product;
+  });
+
     const[data,setData]=useState([])
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get(`${laptopListUrl}`)
+        const res=await axios.get("https://api.jsonbin.io/b/6123b0802aa80036126e758a")
         setData(res.data)
         setCart(false)
     }
 
     useEffect(()=>{
+      dispatch(getLaptopAction());
      pullData()
-    })
+    },[dispatch])
     return(
         <>
         <section className="bg-warning p-3">
@@ -30,18 +37,15 @@ let Laptop=(props)=>{
       </section>
 
         
-        <div className="container" >
-            <div className="row">
-                <div className="col"></div>
-            </div>
-        </div>
-        <div className="container mt-3" >
-            
-                <div className="col-md-4" >
-                    <div className="card" >
+       
+        <div className="container mt-4" >
+          <div className="row">
+      
+                    
                         {data.map((get,index)=>{
                          return(
-                             <div key={index}>
+                             <div key={index} className="col-lg-3 py-3 px-3">
+                               <div className="card" >
                                    <div className="card-header">
                                       <img
                                       src={get.img}
@@ -63,11 +67,13 @@ let Laptop=(props)=>{
                                      </ul>
                                   </div> 
                         </div>
+                        </div>
                      )
                 })}
                         
-                    </div>
+                  
                 </div>
+              
             </div>
          
         </>

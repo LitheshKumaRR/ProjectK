@@ -1,7 +1,6 @@
 import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import {watchListUrl} from '../Json/bin'
 
 
 let Watches = (props) => {
@@ -9,14 +8,14 @@ let Watches = (props) => {
     const[cart,setCart]=useState(true)
 
     const pullData=async()=>{
-        const res=await axios.get(`${watchListUrl}`)
+        const res=await axios.get("https://api.jsonbin.io/b/611fd94d2aa80036126d2a62")
         setData(res.data)
         setCart(false)
     }
 
     useEffect(()=>{
      pullData()
-    })
+    },[])
   return (
     <React.Fragment>
       <section className="bg-warning p-3">
@@ -31,11 +30,12 @@ let Watches = (props) => {
       <section>
         <div className="container mt-4">
           <div className="row">
-            <div className="col-md-3">
-              <div className="card">
+            
+              
               {data.map((watch,index)=>{
                   return(
-                    <div key={index}>
+                    <div key={index}  className="col-lg-3 py-3 px-3">
+                      <div className="card">
                       <div className="card-header bg-white">
                         <img
                          src={watch.img}
@@ -58,14 +58,15 @@ let Watches = (props) => {
                      </div>
 
                     </div>
+                    </div>
                  )
               })}
                 
            </div>
-        </div>
+        
             
       </div>
-  </div>
+  
       </section>
     </React.Fragment>
   );
