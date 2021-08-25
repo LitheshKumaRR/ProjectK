@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { uploadProductAction } from '../Redux/product.action'
+import { useHistory } from "react-router-dom"
 let Upload = () => {
   let dispatch = useDispatch();
   let history = useHistory();
@@ -38,8 +37,7 @@ let Upload = () => {
     });
   };
   let submitHandler = (event) => {
-    event.preventDefault();
-    dispatch(uploadProductAction(product, history));
+    event.preventDefault()
   };
   return (
     <>

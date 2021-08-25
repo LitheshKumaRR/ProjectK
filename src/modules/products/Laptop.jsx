@@ -1,29 +1,48 @@
-import React ,{useState,useEffect}from 'react'
+import React ,{useState,useEffect,useCallback}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import { useDispatch,useSelector } from "react-redux";
-import { getLaptopAction } from '../Redux/product.action'
+import { dispatchProductList } from '../Redux/action'
 
+import { bindActionCreators } from 'redux'
 
 let Laptop=(props)=>{
-  let dispatch=useDispatch()
-  let abc = useSelector((state) => {
-    return state.product;
-  });
+  // let dispatch=useDispatch()
+  // let abc = useSelector((state) => {
+  //   return state.product;
+  // });
 
-    const[data,setData]=useState([])
-    const[cart,setCart]=useState(true)
+  //   const[data,setData]=useState([])
+  //   const[cart,setCart]=useState(true)
 
-    const pullData=async()=>{
-        const res=await axios.get("https://api.jsonbin.io/b/6123b0802aa80036126e758a")
-        setData(res.data)
-        setCart(false)
-    }
+  //   const pullData=async()=>{
+  //       const res=await axios.get("https://api.jsonbin.io/b/6123b0802aa80036126e758a")
+  //       setData(res.data)
+  //       setCart(false)
+  //   }
 
-    useEffect(()=>{
-      dispatch(getLaptopAction());
-     pullData()
-    },[dispatch])
+  //   useEffect(()=>{
+  //     dispatch(getLaptopAction());
+  //    pullData()
+  //   },[dispatch])
+  const productsData = useSelector((state) => state.productsReducer)
+  const dispatch = useDispatch()
+  const actions = bindActionCreators(
+    {
+      dispatchProductList
+    },
+    dispatch
+  )
+
+
+   const getData = useCallback(async ()=>{
+       const res = await axios.get('https://api.jsonbin.io/b/6123b0802aa80036126e758a') 
+       actions.dispatchProductList(res.data)
+   },[])
+
+   useEffect(()=>{
+       getData()
+   },[getData])
     return(
         <>
         <section className="bg-warning p-3">
@@ -42,7 +61,7 @@ let Laptop=(props)=>{
           <div className="row">
       
                     
-                        {data.map((get,index)=>{
+                        {productsData.productsList.map((get,index)=>{
                          return(
                              <div key={index} className="col-lg-3 py-3 px-3">
                                <div className="card" >

@@ -1,83 +1,52 @@
-import React ,{useState,useEffect}from 'react'
-import axios from 'axios'
+import React ,{useEffect,useCallback,useSelector}from 'react'
 import {Link} from 'react-router-dom'
-import { useDispatch,useSelector } from "react-redux";
-import { getLaptopAction } from '../Redux/product.action'
+import { dispatchAddTocart } from '../Redux/action'
 
+import { bindActionCreators } from 'redux'
 
-let Laptop=(props)=>{
-  let dispatch=useDispatch()
-  let abc = useSelector((state) => {
-    return state.product;
-  });
+function Cart(props) {
+  const productsData = useSelector((state) => state.productsReducer)
+   const dispatch = useDispatch()
+  const actions = bindActionCreators(
+    {
+      dispatchAddTocart
+    },
+     dispatch
+  )
+   
 
-    const[data,setData]=useState([])
-    const[cart,setCart]=useState(true)
-
-    const pullData=async()=>{
-        const res=await axios.get("https://api.jsonbin.io/b/6123b0802aa80036126e758a")
-        setData(res.data)
-        setCart(false)
-    }
-
-    useEffect(()=>{
-      dispatch(getLaptopAction());
-     pullData()
-    },[dispatch])
-    return(
-        <>
-        <section className="bg-warning p-3">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <h3>Trending Laptops</h3>
+  const onAddRedux=(productsData)=>{
+actions.dispatchAddTocart(productsData,props.history)
+  }
+  const {items}=props
+  return (
+    <React.Fragment>
+      <h1>Items Added to the cart</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-3">
+            <div className="card">
+            {
+        items.map((items)=>(
+          <div key={items.id}>
+            <img src={items.img} alt="" />
+            <h2>{items.name}</h2>
+            <h1>{items.price}</h1>
+          </div>
+        ))
+      }
+     
             </div>
           </div>
         </div>
-      </section>
-
-        
-       
-        <div className="container mt-4" >
-          <div className="row">
+      </div>
       
-                    
-                        {data.map((get,index)=>{
-                         return(
-                             <div key={index} className="col-lg-3 py-3 px-3">
-                               <div className="card" >
-                                   <div className="card-header">
-                                      <img
-                                      src={get.img}
-                                      alt='Mobile Data'
-                                       height="50%"
-                                       width="50%"
-                                          />
-                                   </div>  
-
-                                    <div className="card-body">
-                                      <ul className="list-group">
-                                       <li className="list-group-item">{get.name}</li>
-                                       <li className="list-group-item">{get.price}</li>
-                                        <li className="list-group-item">
-                                        <Link to="/cart">
-                                        <button className="btn btn-success" data-id={get.id} onClick={()=>props.onAdd(get)}>Add Cart</button>
-                                        </Link>
-                                       </li>
-                                     </ul>
-                                  </div> 
-                        </div>
-                        </div>
-                     )
-                })}
-                        
-                  
-                </div>
-              
-            </div>
-         
-        </>
-    )
+      <Link to="./Checkout">
+        <button className="btn btn-success" onClick={()=>onAddRedux(productsData.cartData)}>Proceed to Checkout </button>
+        </Link>
+      
+    </React.Fragment>
+  )
 }
 
-export default Laptop 
+export default Cart

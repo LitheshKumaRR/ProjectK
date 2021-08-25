@@ -8,20 +8,21 @@ function Cart(props) {
       <h1>Items Added to the cart</h1>
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
-            <div className="card">
+            
             {
         items.map((items)=>(
-          <div key={items.id}>
+          <div key={items.id} className="col-lg-3 py-3 px-3">
+            <div className="card">
             <img src={items.img} alt="" />
             <h2>{items.name}</h2>
             <h1>{items.price}</h1>
           </div>
+          </div>
         ))
       }
      
-            </div>
-          </div>
+            
+          
         </div>
       </div>
       

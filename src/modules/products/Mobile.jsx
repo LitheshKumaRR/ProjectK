@@ -1,22 +1,46 @@
-import React ,{useState,useEffect}from 'react'
+import React ,{useState,useEffect,useCallback}from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import { useDispatch,useSelector } from "react-redux";
+import { dispatchProductList } from '../Redux/action'
 
+import { bindActionCreators } from 'redux'
 
 
 let Mobile = (props) => {
-  const[data,setData]=useState([])
-    const[cart,setCart]=useState(true)
+  // const[data,setData]=useState([])
+  //   const[cart,setCart]=useState(true)
 
-    const pullData=async()=>{
-        const res=await axios.get('https://api.jsonbin.io/b/611fd9adc5159b35ae016bc3')
-        setData(res.data)
-        setCart(false)
-    }
+  //   const pullData=async()=>{
+  //       const res=await axios.get('https://api.jsonbin.io/b/611fd9adc5159b35ae016bc3')
+  //       setData(res.data)
+  //       setCart(false)
+  //   }
 
-    useEffect(()=>{
-     pullData()
-    },[])
+  //   useEffect(()=>{
+  //    pullData()
+  //   },[])
+
+  const productsData = useSelector((state) => state.productsReducer)
+  const dispatch = useDispatch()
+  const actions = bindActionCreators(
+    {
+      dispatchProductList
+    },
+    dispatch
+  )
+
+
+   const getData = useCallback(async ()=>{
+       const res = await axios.get('https://api.jsonbin.io/b/6124f3cd076a223676b07660') 
+       actions.dispatchProductList(res.data)
+   },[])
+
+   useEffect(()=>{
+       getData()
+   },[getData])
+
+
   return (
     <React.Fragment>
       <section className="bg-warning p-3">
@@ -33,7 +57,7 @@ let Mobile = (props) => {
           <div className="row">
             {/* <div className="col-lg-3"> */}
               
-                {data.map((mob,index)=>{
+                {productsData.productsList.map((mob,index)=>{
                   return(
                     <div key={index } className="col-lg-3 py-3 px-3" >
                       <div className="card">
